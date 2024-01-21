@@ -24,9 +24,6 @@ fn main() {
     let hash_hex = format!("{:x}", result);
     println!("SHA-256 hash: {}", hash_hex);
     
-    // let checksum = &hash_hex[0..1];
-    // println!("checksum is {:0width}", checksum);
-
     let checksum_binary = format!("{:0width$b}", u16::from_str_radix(&hash_hex[0..1], 16).unwrap(), width = 4);
     println!("binary checksum is {}", checksum_binary);
 
@@ -46,7 +43,7 @@ fn main() {
         let slice_to_push = &seed_with_checksum[slicer..=slicer+10];
         seed_phrase_words_in_binary.push(slice_to_push);
         
-        seed_phrase_words.push(&wordlist[usize::from_str_radix(slice_to_push,2).unwrap()])
+        seed_phrase_words.push(&wordlist[usize::from_str_radix(slice_to_push,2).unwrap()-1])
     }
 
     println!("{:?}", seed_phrase_words_in_binary);
