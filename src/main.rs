@@ -12,8 +12,8 @@ fn main() {
     // println!("Random number: {}", random_number);
 
     let random_number_binary_padded = format!("{:0width$b}", random_number, width = 128);
-    println!("{}", random_number_binary_padded);
-    
+    println!("random number in binary padded to 128 chars is {}", random_number_binary_padded);
+
     let mut hasher = Sha256::new();
     hasher.update(random_number_binary_padded.as_bytes());
     let result = hasher.finalize();
@@ -27,7 +27,7 @@ fn main() {
     let checksum_binary = format!("{:0width$b}", u16::from_str_radix(&hash_hex[0..1], 16).unwrap(), width = 4);
     println!("binary checksum is {}", checksum_binary);
 
-    println!("random_number_binary_padded + checksum is {}{}, random_number_binary_padded lenght is {}, and checksum_binary lenght is {}, total length is {}", random_number_binary_padded, checksum_binary, random_number_binary_padded.len(), checksum_binary.to_string().len(), random_number_binary_padded.len()+checksum_binary.to_string().len());
+    println!("random_number_binary_padded + checksum is {}{}, random_number_binary_padded length is {}, and checksum_binary length is {}, total length is {}", random_number_binary_padded, checksum_binary, random_number_binary_padded.len(), checksum_binary.to_string().len(), random_number_binary_padded.len()+checksum_binary.to_string().len());
 
     let seed_with_checksum = format!("{}{}", random_number_binary_padded, checksum_binary);
     println!("seed with checksum is: \n{}", seed_with_checksum);
@@ -43,20 +43,12 @@ fn main() {
         let slice_to_push = &seed_with_checksum[slicer..=slicer+10];
         seed_phrase_words_in_binary.push(slice_to_push);
         
-        
-        // seed_phrase_words.push(wordlist[usize::from_str_radix(slice_to_push,2).unwrap()])
         seed_phrase_words.push(&wordlist[usize::from_str_radix(slice_to_push,2).unwrap()])
-
     }
 
     println!("{:?}", seed_phrase_words_in_binary);
-    println!("{}", seed_phrase_words_in_binary.len());
-
-    // seed_phrase_words.push(&wordlist[233]);
     println!("{:?}", seed_phrase_words);
-    // for slice 
 
-    // println!("{:?}", wordlist[0])
 }
 
 
