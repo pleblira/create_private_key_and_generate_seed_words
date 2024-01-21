@@ -14,6 +14,9 @@ fn main() {
     let random_number_binary_padded = format!("{:0width$b}", random_number, width = 128);
     println!("random number in binary padded to 128 chars is {}", random_number_binary_padded);
 
+    // uncomment the line below to use a preset seed phrase instead of randomizing
+    // let random_number_binary_padded: String = format!("{:0width$b}",u128::from_str_radix("0C1E24E5917779D297E14D45F14E1A1A",16).unwrap(), width=128);
+
     let mut hasher = Sha256::new();
     hasher.update(random_number_binary_padded.as_bytes());
     let result = hasher.finalize();
